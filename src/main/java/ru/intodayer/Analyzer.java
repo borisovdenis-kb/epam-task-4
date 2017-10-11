@@ -47,6 +47,22 @@ public class Analyzer {
         return pairs;
     }
 
+    public static List<Author> getCollaborativeAuthors(Collection<Book> books) {
+        List<Author> collaborative = new ArrayList<>();
+        books
+            .stream()
+            .filter((b) -> b.getAuthors().size() > 1)
+            .forEach((b) -> {
+                b.getAuthors()
+                    .stream().forEach((a) -> {
+                        if (!collaborative.contains(a)) {
+                            collaborative.add(a);
+                        }
+                });
+            });
+        return collaborative;
+    }
+
     private static void addBookToAuthor(Map<String, HashSet<String>> pairs, String key, String value) {
         HashSet<String> set = new HashSet<>();
 

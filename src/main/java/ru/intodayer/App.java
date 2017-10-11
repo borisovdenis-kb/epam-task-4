@@ -39,5 +39,7 @@ public class App {
         System.out.println(Analyzer.mapBookTitlesToAge(books));
 
         System.out.println(Analyzer.mapAuthorsToBooks(books));
+
+        System.out.println(Analyzer.getCollaborativeAuthors(books));
     }
 }
