@@ -41,11 +41,16 @@ public class Author {
         return gender;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         if (deathDay != null) {
             return (int) ChronoUnit.YEARS.between(birthDay, deathDay);
         } else {
             return (int) ChronoUnit.YEARS.between(birthDay, LocalDate.now());
         }
+    }
+
+    @Override
+    public String toString() {
+        return name + "(" + getAge() + ")";
     }
 }
