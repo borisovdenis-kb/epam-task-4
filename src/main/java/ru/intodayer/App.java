@@ -26,5 +26,18 @@ public class App {
         System.out.println(Analyzer.getAverageAuthorAge(authors));
         System.out.println(Analyzer.sortAuthorsByAge(authors));
         System.out.println(Analyzer.filterPensioners(authors));
+
+        Book b1 = new Book("Буранный полустанок", birthDay1, author1, author2);
+        Book b2 = new Book("Евлампия Романова", birthDay3, author3);
+        Book b3 = new Book("Космос", birthDay3, author2);
+
+        ArrayList<Book> books = new ArrayList<>();
+        books.add(b1);
+        books.add(b2);
+        books.add(b3);
+
+        System.out.println(Analyzer.mapBookTitlesToAge(books));
+
+        System.out.println(Analyzer.mapAuthorsToBooks(books));
     }
 }
