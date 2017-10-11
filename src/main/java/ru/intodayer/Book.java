@@ -5,9 +5,9 @@ import java.util.ArrayList;
 
 
 public class Book {
-    private String title;
-    private LocalDate publishDate;
-    private ArrayList<Author> authors;
+    private final String title;
+    private final LocalDate publishDate;
+    private final ArrayList<Author> authors;
 
     public Book(String title, LocalDate publishDate, ArrayList<Author> authors) {
         this.title = title;

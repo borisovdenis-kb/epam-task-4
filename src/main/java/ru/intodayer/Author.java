@@ -1,18 +1,24 @@
 package ru.intodayer;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 
 public class Author {
-    private String name;
-    private LocalDate birthDay;
+    private final String name;
+    private final LocalDate birthDay;
+    private final Gender gender;
     private LocalDate deathDay;
-    private boolean gender;     // TODO: через enum?
 
-    public Author(String name, LocalDate birthDay, boolean gender) {
+    public Author(String name, LocalDate birthDay, Gender gender) {
         this.name = name;
         this.birthDay = birthDay;
         this.gender = gender;
+    }
+
+    public Author(String name, LocalDate birthDay, LocalDate deathDay, Gender gender) {
+        this(name, birthDay, gender);
+        this.deathDay = deathDay;
     }
 
     public String getName() {
@@ -31,11 +37,15 @@ public class Author {
         this.deathDay = deathDay;
     }
 
-    public boolean getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(boolean gender) {
-        this.gender = gender;
+    public int getAge() {
+        if (deathDay != null) {
+            return (int) ChronoUnit.YEARS.between(birthDay, deathDay);
+        } else {
+            return (int) ChronoUnit.YEARS.between(birthDay, LocalDate.now());
+        }
     }
 }
