@@ -1,6 +1,5 @@
 package ru.intodayer;
 
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.function.Predicate;
@@ -86,5 +85,17 @@ public class Analyzer {
                     });
             });
         return pairs;
+    }
+
+    public static void demonstrateWorkOfAnalyzer() {
+        List<Author> authors = CreateTestData.createAuthorList();
+        List<Book> books = CreateTestData.createBookList(authors);
+
+        System.out.println("Average age of authors:        " + Analyzer.getAverageAuthorAge(authors));
+        System.out.println("Books and their ages:          " + Analyzer.mapBookTitlesToAge(books));
+        System.out.println("Pensioners:                    " + Analyzer.filterPensioners(authors));
+        System.out.println("Authors and their books:       " + Analyzer.mapAuthorsToBooks(books));
+        System.out.println("Sorting authors by age (asc.): " + Analyzer.sortAuthorsByAge(authors));
+        System.out.println("List of collaborative authors: " + Analyzer.getCollaborativeAuthors(books));
     }
 }
