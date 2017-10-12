@@ -1,3 +1,2 @@
-# epam-task-4
+# Java 8 Stream Task
 #### Author: Borisov Denis
-#### Java 8 Stream Task
