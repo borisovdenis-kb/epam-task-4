@@ -11,7 +11,7 @@ public class Analyzer {
     public static Double getAverageAuthorAge(Collection<Author> authors) {
         if (authors == null || authors.isEmpty())
             return null;
-        return authors.stream().mapToInt(Author::getAge).average().getAsDouble();
+        return authors.stream().collect(Collectors.averagingInt(Author::getAge));
     }
 
     public static List<Author> sortAuthorsByAge(Collection<Author> authors) {
