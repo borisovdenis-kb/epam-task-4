@@ -97,7 +97,7 @@ public class TestDataCreator {
                 "Стихи о науке",
                 LocalDate.of(1995, 1, 1),
                 authorMap.get("Чингиз Айтматов"),
-                authorMap.get("Чингиз Айтматов")
+                authorMap.get("Карл Саган")
             )
         );
 
