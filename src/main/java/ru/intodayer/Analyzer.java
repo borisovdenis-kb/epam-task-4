@@ -8,14 +8,18 @@ import java.util.*;
 
 
 public class Analyzer {
+    private static <T> boolean collectionIsEmpty(Collection<T> collection) {
+        return (collection == null && collection.isEmpty());
+    }
+
     public static Double getAverageAuthorAge(Collection<Author> authors) {
-        if (authors == null || authors.isEmpty())
+        if (collectionIsEmpty(authors))
             return null;
         return authors.stream().collect(Collectors.averagingInt(Author::getAge));
     }
 
     public static List<Author> sortAuthorsByAge(Collection<Author> authors) {
-        if (authors == null || authors.isEmpty())
+        if (collectionIsEmpty(authors))
             return null;
         return authors
                 .stream()
@@ -24,18 +28,18 @@ public class Analyzer {
     }
 
     public static List<Author> filterPensioners(Collection<Author> authors) {
-        if (authors == null || authors.isEmpty())
+        if (collectionIsEmpty(authors))
             return null;
-        // считаю разницу между датой рождения и сегодняшней датой. правильно ли это?
+        // TODO: считаю разницу между датой рождения и сегодняшней датой. правильно ли это?
         Predicate<Author> siftYoung = (a) -> {
-            int years = (int) ChronoUnit.YEARS.between(a.getBirthDay(), LocalDate.now());
-            return  (a.getGender() == Gender.MAN ? years > 65 : years > 63);
+            int age = a.getAge();
+            return  (a.getGender() == Gender.MAN ? age > 65 : age > 63);
         };
         return authors.stream().filter(siftYoung).collect(Collectors.toList());
     }
 
     public static Map<String, Integer> mapBookTitlesToAge(Collection<Book> books) {
-        if (books == null || books.isEmpty())
+        if (collectionIsEmpty(books))
             return null;
         Map<String, Integer> pairs = new HashMap<>();
         books
@@ -47,6 +51,8 @@ public class Analyzer {
     }
 
     public static List<Author> getCollaborativeAuthors(Collection<Book> books) {
+        if (collectionIsEmpty(books))
+            return null;
         List<Author> collaborative = new ArrayList<>();
         books
             .stream()
@@ -74,7 +80,7 @@ public class Analyzer {
     }
 
     public static Map<String, HashSet<String>> mapAuthorsToBooks(Collection<Book> books) {
-        if (books == null || books.isEmpty())
+        if (collectionIsEmpty(books))
             return null;
         Map<String, HashSet<String>> pairs = new HashMap<>();
         books
