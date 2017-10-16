@@ -88,8 +88,8 @@ public class Analyzer {
     }
 
     public static void demonstrateWorkOfAnalyzer() {
-        List<Author> authors = CreateTestData.createAuthorList();
-        List<Book> books = CreateTestData.createBookList(authors);
+        List<Author> authors = TestDataCreator.createAuthorList();
+        List<Book> books = TestDataCreator.createBookList(authors);
 
         System.out.println("Average age of authors:        " + Analyzer.getAverageAuthorAge(authors));
         System.out.println("Books and their ages:          " + Analyzer.mapBookTitlesToAge(books));

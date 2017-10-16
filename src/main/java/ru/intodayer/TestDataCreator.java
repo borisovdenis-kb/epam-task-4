@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 
-public class CreateTestData {
+public class TestDataCreator {
     public static List<Author> createAuthorList() {
         List<Author> authors = new ArrayList<>();
         authors.add(
