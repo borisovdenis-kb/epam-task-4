@@ -51,17 +51,15 @@ public class Analyzer {
             ));
     }
 
-    public static List<Author> getCollaborativeAuthors(Collection<Book> books) {
+    public static Set<Author> getCollaborativeAuthors(Collection<Book> books) {
         if (collectionIsEmpty(books))
             return null;
-        // TODO: Переделать!
+
         return books
             .stream()
-            .filter((book) -> book.getAuthors().size() > 1)
-            .flatMap(book -> book.getAuthors().stream())
-            .collect(Collectors.toList());
+            .flatMap(book -> book.getAuthors().size() < 2 ? null : book.getAuthors().stream())
+            .collect(Collectors.toSet());
     }
-
 
     public static Map<String, Set<String>> mapAuthorsToTheirBooks(Collection<Book> books) {
         if (collectionIsEmpty(books))
