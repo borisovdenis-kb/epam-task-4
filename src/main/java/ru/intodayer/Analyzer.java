@@ -1,5 +1,7 @@
 package ru.intodayer;
 
+import javafx.util.Pair;
+
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.function.Predicate;
@@ -52,39 +54,26 @@ public class Analyzer {
     public static List<Author> getCollaborativeAuthors(Collection<Book> books) {
         if (collectionIsEmpty(books))
             return null;
-
+        // TODO: Переделать!
         return books
             .stream()
             .filter((book) -> book.getAuthors().size() > 1)
             .flatMap(book -> book.getAuthors().stream())
-            .distinct()
             .collect(Collectors.toList());
     }
 
-    private static void addBookToAuthor(Map<String, HashSet<String>> pairs, String key, String value) {
-        HashSet<String> set = new HashSet<>();
 
-        if (pairs.containsKey(key)) {
-            pairs.get(key).add(value);
-        } else {
-            set.add(value);
-            pairs.put(key, set);
-        }
-    }
-
-    public static Map<String, HashSet<String>> mapAuthorsToBooks(Collection<Book> books) {
+    public static Map<String, Set<String>> mapAuthorsToTheirBooks(Collection<Book> books) {
         if (collectionIsEmpty(books))
             return null;
 
-        Map<String, HashSet<String>> pairs = new HashMap<>();
-        books
-            .stream().forEach((b) -> {
-                b.getAuthors()
-                    .stream().forEach((a) -> {
-                        addBookToAuthor(pairs, a.getName(), b.getTitle());
-                    });
-            });
-        return pairs;
+        return books
+            .stream()
+            .flatMap(book -> book.getAuthors().stream().map(a -> new Pair<>(a, book)))
+            .collect(Collectors.groupingBy(
+                    a->a.getKey().getName(),
+                    Collectors.mapping(a->a.getValue().getTitle(), Collectors.toSet())
+            ));
     }
 
     public static void demonstrateWorkOfAnalyzer() {
@@ -94,7 +83,7 @@ public class Analyzer {
         System.out.println("Average age of authors:        " + Analyzer.getAverageAuthorAge(authors));
         System.out.println("Books and their ages:          " + Analyzer.mapBookTitlesToAge(books));
         System.out.println("Pensioners:                    " + Analyzer.filterPensioners(authors));
-        System.out.println("Authors and their books:       " + Analyzer.mapAuthorsToBooks(books));
+        System.out.println("Authors and their books:       " + Analyzer.mapAuthorsToTheirBooks(books));
         System.out.println("Sorting authors by age (asc.): " + Analyzer.sortAuthorsByAge(authors));
         System.out.println("List of collaborative authors: " + Analyzer.getCollaborativeAuthors(books));
     }
